@@ -1,9 +1,9 @@
 <div class="body" style="padding-top: 20px;">
 			<div style="text-align: center;">
 			  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
-			</div>		
+			</div>
 			<!-- Red color scheme -->
-			<%= simple_form_for :post, url: marriage_index_path, :html => { :class => "sky-form", :multipart => true } do |f| %>
+			<%= simple_form_for :post, url: marriage_path, :html => { :class => "sky-form", :multipart => true } do |f| %>
 				<header>Pengajuan Surat Keterangan Nikah</header>
 				<fieldset>
 					<br />
@@ -11,7 +11,7 @@
 						<b>Persyaratan :</b><br />
 						<ol>
 							<li>Paspor Indonesia dengan ijin tinggal (visa pelajar/visa kerja professional/visa sosia/Pelancong 30 hari)</li>
-							<li>Surat dari kantor kepala kelurahan/kepala desa tempat tinggal pemohon (Surat N1 : Surat Keterangan Status , Surat N2 : Surat Keterangan Asal Usul, Surat N4 : Surat Keterangan Asal Usul orang tua)</li>
+							<li>Surat dari kantor kepala kelurahan/kepala desa tempat tinggal pemohon (Surat N1: Surat Keterangan Status , Surat N2: Surat Keterangan Asal Usul, Surat N4: Surat Keterangan Asal Usul orang tua)</li>
 							<li>Surat Rekomendasi dari KUA Kecamatan tempat tinggal pemohon</li>
 							<li>Untuk Perempuan, harap melampirkan Surat Wali Nikah yang dicap dan ditanda tangani oleh Kepala KUA Kecamatan</li>
 						</ol>
@@ -28,14 +28,14 @@
 					<br />
 					<legend style="float:left;margin-bottom:28px;">Form Pengajuan Surat Keterangan Nikah (Sesama WNI)</legend>
 					<div class="row">
-						<section class="col col-4">							
+						<section class="col col-4">
 							<label class="label">Nama Lengkap (Calon Suami)</label>
 							<label class="input">
 								<i class="icon-append icon-user"></i>
 								<%= f.input_field :namesuami %>
 							</label>
-						</section>			
-						<section class="col col-4"></section>			
+						</section>
+						<section class="col col-4"></section>
 						<section class="col col-4">
 							<label class="label">Scan Paspor (Calon Suami)</label>
 							<label for="file" class="input input-file">
@@ -44,11 +44,11 @@
 									<%= f.input_field :pasporsuaminame, readonly: true %>
 							</label>
 							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
-						</section>			
+						</section>
 					</div>
 					<div class="row">
-						<section class="col col-4"></section>	
-						<section class="col col-4"></section>	
+						<section class="col col-4"></section>
+						<section class="col col-4"></section>
 						<section class="col col-4">
 							<label class="label">Alien Card (Calon Suami)</label>
 							<label for="file" class="input input-file">
@@ -60,14 +60,14 @@
 						</section>
 					</div>
 					<div class="row">
-						<section class="col col-4">							
+						<section class="col col-4">
 							<label class="label">Nama Lengkap (Calon Istri)</label>
 							<label class="input">
 								<i class="icon-append icon-user"></i>
 								<%= f.input_field :nameistri %>
 							</label>
-						</section>			
-						<section class="col col-4"></section>			
+						</section>
+						<section class="col col-4"></section>
 						<section class="col col-4">
 							<label class="label">Scan Paspor (Calon Istri)</label>
 							<label for="file" class="input input-file">
@@ -76,11 +76,11 @@
 									<%= f.input_field :pasporistriname, readonly: true %>
 							</label>
 							<div class="note"><strong>Note:</strong> Format : JPG/JPEG/PNG. Ukuran Maks : 2MB</div>
-						</section>			
+						</section>
 					</div>
 					<div class="row">
-						<section class="col col-4"></section>	
-						<section class="col col-4"></section>	
+						<section class="col col-4"></section>
+						<section class="col col-4"></section>
 						<section class="col col-4">
 							<label class="label">Alien Card (Calon Istri)</label>
 							<label for="file" class="input input-file">
@@ -174,13 +174,13 @@
 						Jika terjadi perubahan data harap hubungi staff KBRI Korea melalui kontak yang telah disediakan
 					</p>
 				</fieldset>
-				
+
 				<footer>
 					<button type="submit" class="button">Laporkan ke KBRI</button>
 					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
 				</footer>
 			<% end %>
-			<!--/ Red color scheme -->			
+			<!--/ Red color scheme -->
 </div>
 <script type="text/javascript">
 			$(function()
@@ -191,11 +191,11 @@
 					prevText: '<i class="icon-chevron-left"></i>',
 					nextText: '<i class="icon-chevron-right"></i>'
 				});
-				
-				$('#post_avatar').change(function(){	
+
+				$('#post_avatar').change(function(){
 					filename = $(this).val();
 					$('#post_avatarname').val(filename.split("\\").pop());
 				});
-				
-			});			
+
+			});
 </script>

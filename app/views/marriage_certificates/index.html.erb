@@ -1,0 +1,51 @@
+<div class="body" style="padding-top: 20px;">
+<div style="text-align: center;">
+  <%= image_tag("/assets/images/garuda.png", height: '120', width: '120') %>
+</div>
+<h3 style="text-align: center;">Rekapitulasi Surat Keterangan Pernikahan</h3>
+<div class="span8">
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>No. Registrasi</th>
+        <th>Aplikan Pria</th>
+        <th>Aplikan Wanita</th>
+        <th>Pencatat Pernikahan</th>
+        <th>Lokasi Pernikahan</th>
+        <th>Pejabat</th>
+        <th colspan="3">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% if @marriage_certificates.count > 0 then %>
+      <% @marriage_certificates.each do |marriage| %>
+      <tr>
+        <td><%= marriage.cert_no %></td>
+        <td><%= marriage.marriage_groom_name %></td>
+        <td><%= marriage.marriage_bride_name %></td>
+        <td><%= marriage.cert_issuer %></td>
+        <td><%= marriage.marriage_location %></td>
+        <td>
+            <%= marriage.authorized_signer_name + " (" + marriage.authorized_signer_post + ")" %>
+        </td>
+        <td><%= link_to marriage_certificate_path(marriage) + ".pdf", target: "_blank" do %>
+                                <span class="glyphicon glyphicon-file"></span>
+                                <span class="glyphicon-class">Print</span>
+            <% end %></td>
+        <td>|&nbsp;<%= link_to edit_marriage_certificate_path(marriage) do %>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="glyphicon-class">Edit</span>
+            <% end %></td>
+        <td>|&nbsp;<%= link_to marriage, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                                <span class="glyphicon glyphicon-trash"></span>
+                                <span class="glyphicon-class">Delete</span>
+            <% end %></td>
+      </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+    <%= paginate @marriage_certificates %>
+</div>
+
+<%= link_to 'Aplikasi Baru', new_marriage_certificate_path, :class => 'btn btn-mini btn-primary', :style => 'color: white;' %>

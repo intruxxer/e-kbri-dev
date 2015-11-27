@@ -1,0 +1,2 @@
+module GraduationDocCertificatesHelper
+end

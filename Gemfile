@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source "http://rubygems.org"
 
 gem "rails", "4.0.0"
 gem "mongoid", github: "mongoid/mongoid"
@@ -7,7 +7,7 @@ gem "bson_ext"
 gem "mongo_session_store-rails4"
 gem "geocoder"
 gem "kaminari"
-gem "sidekiq"
+gem "sidekiq", "~> 3.0.0"
 gem "redis"
 
 gem "axlsx"
@@ -50,7 +50,7 @@ group :development do
   gem "zeus"
   gem "rspec-rails"
   gem "factory_girl_rails"
-  gem "better_errors"
+  gem "better_errors" , "~> 1.1.0"
   gem "binding_of_caller"
 end
 

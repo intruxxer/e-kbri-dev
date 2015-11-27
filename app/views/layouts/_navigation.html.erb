@@ -18,13 +18,13 @@
 <% end %>
 </ul>
 
-<ul class="nav navbar-nav">  
+<ul class="nav navbar-nav">
   <% if user_signed_in? then %>
   <% if !current_user.citizenship or current_user.has_role? :admin or current_user.has_role? :moderator %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Visa<b class="caret"></b></a>
     <ul class="dropdown-menu">
-      <li><%= link_to 'Visa/Extension of Re-Entry Permit Requirements', controller: "immigration/visa", action: "info" %></li>	
+      <li><%= link_to 'Visa/Extension of Re-Entry Permit Requirements', controller: "immigration/visa", action: "info" %></li>
       <li class="divider"></li>
       <% if true %> <!-- <% current_user.individual %> -->
       <li><%= link_to 'Individual Visa/Re-entry Permit', visas_path %></li>
@@ -32,43 +32,62 @@
       <% end %>
       <% if true %>
       <li><%= link_to 'Visa Application as Travel/Group', visagroups_path %></li>
-      <% end %>      
+      <% end %>
     </ul>
   </li>
   <% end %>
-  <% if user_signed_in? and current_user.citizenship then %>	
+  <% if user_signed_in? and current_user.citizenship then %>
   <li class="dropdown">
   	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Paspor/SPLP & Lapor Diri<b class="caret"></b></a>
   	<ul class="dropdown-menu">
-  	  <li><%= link_to 'Persyaratan Pembuatan/Perpanjang Paspor', controller: "immigration/passport", action: "info" %></li>      
+  	  <li><%= link_to 'Persyaratan Pembuatan/Perpanjang Paspor', controller: "immigration/passport", action: "info" %></li>
       <li><%= link_to 'Pembuatan/Perpanjang Paspor', passports_path %></li>
       <li class="divider"></li>
       <li><%= link_to 'Persyaratan untuk Lapor Diri', controller: "immigration/report", action: "info" %></li>
       <li><%= link_to 'Pembuatan Lapor Diri', reports_path %></li>
       <% if current_user.has_role? :admin %>
-      <li class="divider"></li>   	    	   
-	  <li><%= link_to 'Prosedur Pelaporan WNI Bermasalah', bantuan_path %></li>
-	  <li><%= link_to 'Formulir Laporan Permintaan Bantuan via E-KBRI', lapormasalah_path %></li>
-	  <% end %>
-      <!--
       <li class="divider"></li>
-      <li><%= link_to 'Persyaratan Pembuatan SPLP', controller: "immigration/report", action: "info" %></li>
-      <li><%= link_to 'Pembuatan SPLP', reports_path %></li>
-      -->
+	    <li><%= link_to 'Prosedur Pelaporan WNI Bermasalah', bantuan_path %></li>
+	    <li><%= link_to 'Formulir Laporan Permintaan Bantuan via E-KBRI', lapormasalah_path %></li>
+	    <% end %>
+      <li class="divider"></li>
+      <li><%= link_to 'Persyaratan Pembuatan SPLP', infosplps_path %></li>
+      <li><%= link_to 'Pembuatan SPLP', splps_path %></li>
     </ul>
   </li>
   <% end %>
   <% else %>
   <li><%= link_to 'Sign Up', new_user_registration_path %></li>
   <% end %>
-  
+
+<% if user_signed_in? and current_user.has_role? :admin then %>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Acknowledgement Letters & Legalization<b class="caret"></b></a>
+    <ul class="dropdown-menu">
+      <li><%= link_to 'Legalisasi Dokumen Perusahaan', company_doc_certificates_path %></li>
+      <li><%= link_to 'Legalisasi Ijazah', graduation_doc_certificates_path %></li>
+      <li><%= link_to 'Legalisasi Surat Kuasa', authorization_doc_certificates_path %></li>
+      <li class="divider"></li>
+      <li><%= link_to 'Surat Keterangan Pengembalian KITAS', kitas_return_certificates_path %></li>
+      <li><%= link_to 'Surat Keterangan Membawa Barang Kepulangan', farewell_goods_certificates_path %></li>
+      <li><%= link_to 'Surat Keterangan Terjemahan SIM Korea', driving_license_certificates_path %></li>
+       <li class="divider"></li>
+      <li><%= link_to 'Surat Akte Lahir', birthday_certificates_path %></li>
+      <li><%= link_to 'Surat Affidavit Perkawinan', marriage_affidavits_path %></li>
+      <li><%= link_to 'Surat Keterangan Perkawinan', marriage_certificates_path  %></li>
+      <li class="divider"></li>
+      <li><%= link_to 'Exit Permit Dinas', exit_permits_path %></li>
+    </ul>
+  </li>
+<% end %>
+
   <% if user_signed_in? %>
   <li class="dropdown">
   	<% if user_signed_in? and !current_user.citizenship then %>
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account Settings <b class="caret"></b></a>
     <ul class="dropdown-menu">
     <li><%= link_to 'My Account', edit_user_registration_path %></li>
-        <% if current_user.has_role? :admin %>      	   
+        <% if current_user.has_role? :admin %>
       	   <li><%= link_to 'Dashboard Management E-KBRI', dashboard_path %></li>
    	    <% end %>
     </ul>
@@ -76,7 +95,7 @@
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pengaturan Akun <b class="caret"></b></a>
     <ul class="dropdown-menu">
     <li><%= link_to 'Profile Akun Saya', edit_user_registration_path %></li>
-        <% if current_user.has_role? :admin %>      	   
+        <% if current_user.has_role? :admin %>
       	   <li><%= link_to 'Dashboard Management E-KBRI', dashboard_path %></li>
    	    <% end %>
     </ul>
@@ -85,31 +104,31 @@
   <% else %>
     <li><%= link_to 'Login', new_user_session_path %></li>
   <% end %>
-  
+
   <% if true then %>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Guidance (Panduan Penggunaan E-KBRI)<b class="caret"></b></a>
     <ul class="dropdown-menu">
     	<li><%= link_to 'Overview of E-KBRI System (Indonesian & English)', overview_path %></li>
     	<li class="divider"></li>
-    	
+
     	<li><%= link_to 'How to Pay Your Visa Fees', payment_path %></li>
     	<li class="divider"></li>
-    	
+
     	<li><%= link_to 'Documents for Visa Application', visadocs_path %></li>
     	<li><%= link_to 'Step-by-step Visa Application using E-KBRI', visaflow_path %></li>
     	<li class="divider"></li>
-   
-   	    <li><%= link_to 'Dokumen yang Diperlukan dalam Aplikasi Paspor', passportdocs_path %></li>   	   
+
+   	    <li><%= link_to 'Dokumen yang Diperlukan dalam Aplikasi Paspor', passportdocs_path %></li>
 	    <li><%= link_to 'Langkah-Langkah Aplikasi Paspor via E-KBRI', passportflow_path %></li>
-	    <li class="divider"></li>   
-	    	   
+	    <li class="divider"></li>
+
 	    <li><%= link_to 'Dokumen yang Diperlukan dalam Lapor Diri', reportdocs_path %></li>
 	    <li><%= link_to 'Langkah-Langkah Lapor Diri Online via E-KBRI', reportflow_path %></li>
-	    
+
     </ul>
   </li>
   <% end %>
-  
+
 </ul>
 </div>

@@ -1,0 +1,49 @@
+<div class="body" style="padding-top: 20px;">
+<div style="text-align: center;">
+  <%= image_tag("/assets/images/garuda.png", height: '120', width: '120') %>
+</div>
+<h3 style="text-align: center;">Rekapitulasi SPLP</h3>
+<div class="span8">
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>No. Registrasi</th>
+        <th>Nama</th>
+        <th>ID Card</th>
+        <th>Jenis Kelamin</th>
+        <th>Tanggal Lahir</th>
+        <th>Tinggi</th>
+        <th colspan="3">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% if @splps.count > 0 then %>
+      <% @splps.each do |splp| %>
+      <tr>
+        <td><%= splp.ref_id %></td>
+        <td><%= splp.full_name %></td>
+        <td><%= splp.arc %></td>
+        <td><%= splp.kelamin %></td>
+        <td><%= splp.dateBirth.strftime("%e %b %Y") %></td>
+        <td><%= splp.height.to_s + " cm" %></td>
+        <td><%= link_to splp_path(splp) + ".pdf", target: "_blank" do %>
+                                <span class="glyphicon glyphicon-file"></span>
+                                <span class="glyphicon-class">Print</span>
+            <% end %></td>
+        <td>|&nbsp;<%= link_to edit_splp_path(splp) do %>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="glyphicon-class">Edit</span>
+            <% end %></td>
+        <td>|&nbsp;<%= link_to splp, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                                <span class="glyphicon glyphicon-trash"></span>
+                                <span class="glyphicon-class">Delete</span>
+            <% end %></td>
+      </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+    <%= paginate @splps %>
+</div>
+
+<%= link_to 'Aplikasi Baru SPLP', new_splp_path, :class => 'btn btn-mini btn-primary', :style => 'color: white;' %>

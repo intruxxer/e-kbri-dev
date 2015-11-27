@@ -1,2 +1,0 @@
-module Immigration::MarriageHelper
-end

@@ -1,0 +1,47 @@
+<div class="body" style="padding-top: 20px;">
+<div style="text-align: center;">
+  <%= image_tag("/assets/images/garuda.png", height: '120', width: '120') %>
+</div>
+<h3 style="text-align: center;">Rekap Surat Keterangan Pulang dengan Barang Pribadi</h3>
+<div class="span8">
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>No. Registrasi</th>
+        <th>Aplikan</th>
+        <th>No. Paspor</th>
+        <th>Pejabat</th>
+        <th colspan="3">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% if @farewell_goods_certificates.count > 0 then %>
+       <% @farewell_goods_certificates.each do |goods| %>
+       <tr>
+        <td><%= goods.doc_no %></td>
+        <td><%= goods.applicant_name %></td>
+        <td><%= goods.applicant_passport %></td>
+        <td>
+            <%= goods.authorized_signer_name + " (" + goods.authorized_signer_post + ")" %>
+        </td>
+        <td><%= link_to farewell_goods_certificate_path(goods) + ".pdf", target: "_blank" do %>
+                                <span class="glyphicon glyphicon-file"></span>
+                                <span class="glyphicon-class">Print</span>
+            <% end %></td>
+        <td>|&nbsp;<%= link_to edit_farewell_goods_certificate_path(goods) do %>
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="glyphicon-class">Edit</span>
+            <% end %></td>
+        <td>|&nbsp;<%= link_to goods, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                                <span class="glyphicon glyphicon-trash"></span>
+                                <span class="glyphicon-class">Delete</span>
+            <% end %></td>
+       </tr>
+       <% end %>
+    <% end %>
+    </tbody>
+  </table>
+    <%= paginate @farewell_goods_certificates %>
+</div>
+
+<%= link_to 'Aplikasi Baru', new_farewell_goods_certificate_path, :class => 'btn btn-mini btn-primary', :style => 'color: white;' %>

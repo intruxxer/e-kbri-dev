@@ -2,7 +2,7 @@
 			<div style="text-align: center;">
 			  <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
 			</div>
-			
+
 			<% unless @errors.nil? %>
 			<h2 style="color:white;background:red;">Pengajuan Gagal. Silahkan cek pesan dibawah ini</h2>
 				<div style="padding:4px;color:red;font-size:10pt;">
@@ -12,14 +12,14 @@
 					<br />
 					Silahkan Upload File - file anda kembali.
 				</div>
-			<%end%>	
-				
+			<%end%>
+
 			<!-- Red color scheme -->
 			<%= simple_form_for @passport, url: passports_path, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
-				<header>Formulir Pengurusan Paspor WNI di Korea Selatan</header>				
+				<header>Formulir Pengurusan Paspor WNI di Korea Selatan</header>
 				<fieldset style="text-align:justify;">
-					Silahkan mengisi formulir aplikasi visa ini dengan hati-hati dan sampai tuntas. Semua data ditanyakan adalah <b>penting</b> kecuali dinyatakan sebagai 'TIDAK'. 
-  					Silakan <b>gunakan karakter Latin dan huruf besar</b>. Jangan gunakan huruf Hangeul di mana saja di formulir ini. Tidak mengikuti peraturan akan mengagalkan 
+					Silahkan mengisi formulir aplikasi visa ini dengan hati-hati dan sampai tuntas. Semua data ditanyakan adalah <b>penting</b> kecuali dinyatakan sebagai 'TIDAK'.
+  					Silakan <b>gunakan karakter Latin dan huruf besar</b>. Jangan gunakan huruf Hangeul di mana saja di formulir ini. Tidak mengikuti peraturan akan mengagalkan
 					proses pengurusan Paspor anda.
 				</fieldset>
 				<fieldset>
@@ -28,7 +28,7 @@
 							<label class="label">Tujuan Aplikasi</label>
 							<label class="select">
 								<%= f.input_field :application_type, :required => true,
-								collection: { 'Perpanjang Paspor' => 'perpanjang-paspor', 
+								collection: { 'Perpanjang Paspor' => 'perpanjang-paspor',
 								          	  'Pembuatan Paspor Baru' => 'pembuatan-paspor'} %>
 							<i></i>
 							</label>
@@ -36,33 +36,33 @@
 						<section class="col col-6">
 							<label class="label">Alasan Permohonan</label>
 							<label class="select">
-								<%= f.input_field :application_reason, 
+								<%= f.input_field :application_reason,
 								collection: { 'Paspor Habis (Masa Berlakunya)' => 'habis-masa', 'Paspor Habis (Halamannya)' => 'habis-halaman',
 								          	  'Paspor Hilang/Rusak' => 'hilang', 'Lainnya' => 'lainnya' } %>
 							<i></i>
 							</label>
 						</section>
-					</div>					
-					
+					</div>
+
 
 				</fieldset>
 				<fieldset>
 					<h4>Tempat Pengambilan</h4>
 					<br />
 					<section class="col col-6">
-							<label class="label">Lokasi Kantor</label>	
+							<label class="label">Lokasi Kantor</label>
 							<label class="select">
-								<%= f.input :pickup_office, :required => true, 
-								collection: { 'KBRI Seoul' => 'seoul', 
+								<%= f.input :pickup_office, :required => true,
+								collection: { 'KBRI Seoul' => 'seoul',
 								          	  'KUKRI Busan' => 'busan'}, :include_blank => false, :label => false %>
 							<i></i>
-							</label>	
-							<div class="note">Jika anda datang langsung ke kantor cabang Seoul/Busan, Harap pilih kantor yang sesuai. Untuk Pemohon online, Passport akan di kirim ditempat pengambilan yang anda pilih</div>						
-					</section>	
-						
+							</label>
+							<div class="note">Jika anda datang langsung ke kantor cabang Seoul/Busan, Harap pilih kantor yang sesuai. Untuk Pemohon online, Passport akan di kirim ditempat pengambilan yang anda pilih</div>
+					</section>
+
 				</fieldset>
 				<fieldset>
-					<h3>Data Diri</h3>	
+					<h3>Data Diri</h3>
 					<hr /><br />
 					<div class="row">
 						<section class="col col-4">
@@ -71,11 +71,11 @@
 								<i class="icon-append icon-user"></i>
 								<%= f.input_field :full_name , :maxlength => 32  %>
 							</label>
-						</section>	
+						</section>
 						<section class="col col-2">
 							<label class="label">Jenis Kelamin</label>
 							<label class="select">
-								<%= f.input_field :kelamin, 
+								<%= f.input_field :kelamin,
 								collection: { 'Laki - laki' => 'L/M', 'Perempuan' => 'P/F' } %>
 							<i></i>
 							</label>
@@ -91,33 +91,33 @@
 						<section class="col col-3">
 							<label class="label">Pas Foto Digital</label>
 							<label for="file" class="input input-file">
-								<div class="button">									
+								<div class="button">
 									<%= f.input_field :photo, as: :file, class: 'fileplaceholder' %>Unggah</div>
 									<input type="text" name="photopath" readonly="readonly" />
 							</label>
 							<div class="note">
 								<strong>Catatan : </strong> Hanya berkas gambar JPG/JPEG/PNG. Ukuran Maks. 2MB<br />
-								<!--Gambar wajib merupakan pas foto resmi rapih dan jelas dengan latar belakang putih. 
+								<!--Gambar wajib merupakan pas foto resmi rapih dan jelas dengan latar belakang putih.
 									Contoh : <a href="http://goo.gl/F9bvxO" target="_blank">http://goo.gl/F9bvxO</a>
 								-->
 								Pas foto dapat diunggah berupa photo yg diambil dengan kamera digital (pocket/DSLR) sendiri atau smartphone masing-masing.<br />
 								Pada saat pengambilan paspor di KBRI, sebelum mengambil paspor, silakan foto di bawah Bank KEB Cabang Yeoido Jungang (20M++ dari KBRI).
 							</div>
-						</section>							
+						</section>
 
 					</div>
 
 					<div class="row">
 						<section class="col col-3">
-							<label class="label">Nomor Alien Card</label>	
+							<label class="label">Nomor Alien Card</label>
 							<label class="input">
 									<i class="icon-append icon-globe"></i>
 									<%= f.input_field :arc , :maxlength => 30  %>
 							</label>
 						</section>
-						
+
 						<section class="col col-2">
-							<label class="label">Tempat Lahir</label>	
+							<label class="label">Tempat Lahir</label>
 							<label class="input">
 									<i class="icon-append icon-globe"></i>
 									<%= f.input_field :placeBirth , :maxlength => 30  %>
@@ -125,28 +125,28 @@
 						</section>
 
 						<section class="col col-2">
-							<label class="label">Tanggal Lahir</label>	
+							<label class="label">Tanggal Lahir</label>
 							<label class="input">
 									<i class="icon-append icon-calendar"></i>
 									<%= f.input_field :dateBirth, class: 'datePick' %>
 							</label>
 							<div class="note"><strong>Format : </strong>yyyy/mm/dd</div>
 						</section>
-						
+
 						<section class="col col-4">
 							<label class="label">Status Warga Negara</label>
 							<label class="select">
-								<%= f.input_field :citizenship_status, 
+								<%= f.input_field :citizenship_status,
 								collection: { 'Indonesia' => 'IDN', 'Dwi Kewarganegaraan' => 'Dwi' } %>
 							<i></i>
 							</label>
 						</section>
-					</div>					
+					</div>
 				</fieldset>
 				<fieldset id="pasporsebelumnya" <% if @passport.application_reason == 'lainnya' %>
-													style="display:none;" 
+													style="display:none;"
 												<% end %>>
-					<h3>Detail Paspor Sebelumnya</h3>	
+					<h3>Detail Paspor Sebelumnya</h3>
 					<hr /><br />
 					<div class="row">
 						<section class="col col-2">
@@ -156,7 +156,7 @@
 								<%= f.input_field :lastPassportNo, :maxlength => 32 %>
 							</label>
 						</section>
-						
+
 						<section class="col col-2">
 							<label class="label">Tanggal Terbit </label>
 							<label class="input">
@@ -165,7 +165,7 @@
 							</label>
 							<div class="note"><strong>Format : </strong>yyyy/mm/dd</div>
 						</section>
-						
+
 						<section class="col col-2">
 							<label class="label">Tanggal Habis Berlaku </label>
 							<label class="input">
@@ -173,33 +173,33 @@
 								<%= f.input_field :dateIssuedEnd, class: 'datePick' %>
 							</label>
 							<div class="note"><strong>Format : </strong>yyyy/mm/dd</div>
-						</section>					
-						
-						
+						</section>
+
+
 						<section class="col col-3">
 							<label class="label">Kantor Imigrasi </label>
 							<label class="input">
 								<i class="icon-append icon-globe"></i>
 								<%= f.input_field :placeIssued %>
-							</label>							
+							</label>
 						</section>
-						
+
 					</div>
 				</fieldset>
 				<fieldset>
-					<h3>Detail Pekerjaan</h3>	
+					<h3>Detail Pekerjaan</h3>
 					<hr /><br />
 					<div class="row">
 						<section class="col col-3">
 							<label class="label">Pekerjaan di Korea</label>
 							<label class="select">
-								<%= f.input_field :jobStudyInKorea, 
-								collection: { "Tenaga Kerja Indonesia" => "Tenaga Kerja" ,"ABK"=>"ABK", "Mahasiswa/Pelajar" => "Pelajar", 
+								<%= f.input_field :jobStudyInKorea,
+								collection: { "Tenaga Kerja Indonesia" => "Tenaga Kerja" ,"ABK"=>"ABK", "Mahasiswa/Pelajar" => "Pelajar",
 									"Profesional" => "Profesional" ,"Ikut Keluarga" => "Ikut Keluarga" , "Lainnya" => "Lainnya" } %>
 							<i></i>
 							</label>
 						</section>
-						
+
 						<section class="col col-3">
 							<label class="label">Keterangan Pekerjaan</label>
 							<label class="input">
@@ -208,15 +208,15 @@
 							</label>
 							<div class="note"><strong>Contoh :</strong> Ibu Rumah Tangga, Anak, Jenis Bisnis, Bidang Pekerjaan, Dll</div>
 						</section>
-						
+
 						<section class="col col-3">
 							<label class="label">Nama Perusahaan/Sekolah/Instansi</label>
 							<label class="input">
 								<i class="icon-append icon-home"></i>
 								<%= f.input_field :jobStudyOrganization, :maxlength => 50 %>
-							</label>							
+							</label>
 						</section>
-						
+
 				  </div>
 				  <div class="row">
 				  		<section class="col col-3"></section>
@@ -225,8 +225,8 @@
 						<label class="textarea textarea-expandable">
 							<i class="icon-append icon-road"></i>
 							<%= f.input_field :jobStudyAddress, :row => 5, :maxlength => 50, as: :text %>
-						</label>		
-						<div class="note">Pastikan alamat sesuai dengan SLC/Kop Surat resmi Instansi terkait</div>				
+						</label>
+						<div class="note">Pastikan alamat sesuai dengan SLC/Kop Surat resmi Instansi terkait</div>
 						</section>
 					</div>
 
@@ -238,22 +238,22 @@
 								<%= f.input_field :phoneKorea, :maxlength => 30 %>
 							</label>
 						</section>
-						
+
 						<section class="col col-6">
 						<label class="label">Alamat Tinggal di Korea</label>
 						<label class="textarea textarea-expandable">
 							<i class="icon-append icon-road"></i>
 							<%= f.input_field :addressKorea, :row => 5, :maxlength => 100, as: :text %>
-						</label>						
+						</label>
 						</section>
 					</div>
-					
+
 					<div class="row">
 						<section class="col col-3"></section>
 						<section class="col col-3">
 							  <label class="label">Propinsi</label>
 							  <label class="select">
-								<%= f.input_field :sponsor_address_prov_kr, collection: { 
+								<%= f.input_field :sponsor_address_prov_kr, collection: {
 									'Gyeonggi-do (경기도)' => 'Gyeonggi-do',
 									'Gangwon-do (강원도)' => 'Gangwon-do',
 									'Jeollabuk-do (전라북도)' => 'Jeollabuk-do',
@@ -273,7 +273,7 @@
 									'특별자치시 Sejong' => 'Sejong'
 									 } %>
 								<i></i>
-							  </label>							
+							  </label>
 						</section>
 						<section class="col col-3">
 							<label class="label">Kota</label>
@@ -302,11 +302,11 @@
 					<section class="col col-3">
 						<label class="label">Propinsi</label>
 						<label class="input">
-							<%= f.input_field :sponsor_address_prov_id, :maxlength => 30 %>							
+							<%= f.input_field :sponsor_address_prov_id, :maxlength => 30 %>
 					    </label>
 					</section>
 				    </div>
-				    
+
 				    <div class="row">
 						<section class="col col-3"></section>
 						<section class="col col-3">
@@ -326,70 +326,70 @@
 						<section class="col col-3">
 							<label class="label">Kabupaten/Kota</label>
 							<label class="input">
-							<%= f.input_field :kabupatenIndonesia, :maxlength => 30 %>							
+							<%= f.input_field :kabupatenIndonesia, :maxlength => 30 %>
 					    </label>
 					  </section>
-						
+
 					</div>
 
-				</fieldset>		
-							
+				</fieldset>
+
 				<fieldset>
 					<h3>Dokumen Pendukung</h3>
 					<hr /><br />
 					Daftar dokumen pendukung yang harus di lampirkan harap mengacu pada <a target="_blank" href="/infopassports">halaman panduan</a> untuk setiap jenis permohonan Paspor. <br />
 					Dokumen yang di lampirkan harus di bawa dalam bentuk cetak ketika datang ke KBRI<br />
 					Gabungkan setiap dokumen hanya dalam format berkas JPG/JPEG/PNG/PDF. dengan ukuran tidak lebih dari 2MB <br /><br />
-					
+
 					<div class="row">
 						<section class="col col-6">
 								<label class="label"><b>Dokumen Pendukung 1</b> (Scan/Foto Depan & Belakang Passport dan ID Card)<br /><%= link_to "Contoh Dokumen Passpor & ID", '/system/sample-pasporid.pdf', :target => :_blank %></label>
 								<label for="file" class="input input-file">
-									<div class="button">									
+									<div class="button">
 										<%= f.input_field :supporting_doc, as: :file, class: 'fileplaceholder' %>Unggah</div>
 										<input type="text" readonly="readonly" />
 								</label>
 								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF/DOC/DOCX/RAR/ZIP. Ukuran Maks. 2MB</div>
-						</section> 
+						</section>
 					</div>
 					<div class="row">
 						<section class="col col-6">
 								<label class="label"><b>Dokumen Pendukung 2</b> (Scan/Foto Depan & Belakang SLC/Admission Letter/Buku Nikah)<br /><%= link_to "Contoh Dokumen SLC", '/system/sample-slc.pdf', :target => :_blank %></label>
 								<label for="file" class="input input-file">
-									<div class="button">									
+									<div class="button">
 										<%= f.input_field :supporting_doc_2, as: :file, class: 'fileplaceholder' %>Unggah</div>
 										<input type="text" readonly="readonly" />
 								</label>
 								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF/DOC/DOCX/RAR/ZIP. Ukuran Maks. 2MB</div>
-						</section> 
+						</section>
 					</div>
 					<div class="row">
 						<section class="col col-6">
 								<label class="label"><b>Dokumen Pendukung 3</b> (Scan/Foto Depan & Belakang Kartu Keluarga/Paspor Orang Tua)</label>
 								<label for="file" class="input input-file">
-									<div class="button">									
+									<div class="button">
 										<%= f.input_field :supporting_doc_3, as: :file, class: 'fileplaceholder' %>Unggah</div>
 										<input type="text" readonly="readonly" />
 								</label>
 								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF/DOC/DOCX/RAR/ZIP. Ukuran Maks. 2MB</div>
-						</section> 
+						</section>
 					</div>
 					<div class="row">
 						<section class="col col-6">
 								<label class="label"><b>Dokumen Pendukung 4</b> (Scan/Foto Depan & Belakang Lainnya)<br /><%= link_to "Contoh Dokumen", '/system/sample-birthcert.pdf', :target => :_blank %></label>
 								<label for="file" class="input input-file">
-									<div class="button">									
+									<div class="button">
 										<%= f.input_field :supporting_doc_4, as: :file, class: 'fileplaceholder' %>Unggah</div>
 										<input type="text" readonly="readonly" />
 								</label>
 								<div class="note"><strong>Catatan : </strong> Hanya berkas JPG/JPEG/PNG/PDF/DOC/DOCX/RAR/ZIP. Ukuran Maks. 2MB</div>
-						</section> 
+						</section>
 					</div>
 				</fieldset>
 
 				<fieldset>
 					<section class="col col-6">
-						<div class="note">Please rewrite below code</div>					
+						<div class="note">Please rewrite below code</div>
 
 						<label class="input">
 							  <%= show_simple_captcha %>
@@ -408,7 +408,7 @@
 					<button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
 				</footer>
 			<% end %>
-			<!--/ Red color scheme -->			
+			<!--/ Red color scheme -->
 </div>
 
 <script type="text/javascript">
@@ -422,11 +422,11 @@
 				});
 				$('#passport_application_reason').change(function(){
 					if($(this).val() == 'lainnya'){
-						$('#pasporsebelumnya').hide();						
-					}else{												
+						$('#pasporsebelumnya').hide();
+					}else{
 						$('#pasporsebelumnya').show();
 					}
-				});	
+				});
 				// Regular datepicker
 				$('.datePick').datepicker({
 					dateFormat: 'yy/mm/dd',
@@ -436,11 +436,11 @@
       				changeYear: true,
       				yearRange: '1900:2040'
 				});
-				
-				$('.fileplaceholder').change(function(){					
+
+				$('.fileplaceholder').change(function(){
 					filename = $(this).val();
 					$(this).parent().next().val(filename.split("\\").pop());
 				});
-				
-			});			
+
+			});
 </script>

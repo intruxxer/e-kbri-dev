@@ -1,0 +1,180 @@
+<div class="body" style="padding-top: 20px;">
+      <div style="text-align: center;">
+        <%= image_tag("/assets/images/garuda.png", height: '160', width: '160') %>
+      </div>
+
+      <% unless @errors.nil? %>
+      <h2 style="color:white;background:red;">Pengajuan Gagal. Silahkan cek pesan dibawah ini</h2>
+        <div style="padding:4px;color:red;font-size:10pt;">
+          <% @errors.each do |fs| %>
+            <%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
+          <%end%>
+          <br />
+          Silahkan Upload File - File anda kembali jika ada.
+        </div>
+      <%end%>
+<%= simple_form_for @birthday_certificate, :method => :post, :html => { :class => "sky-form", :multipart => true } do |f| %>
+  <%= f.error_notification %>
+  <header>Formulir Akte Kelahiran</header>
+  <fieldset style="text-align:justify;">
+  Silakan isi formulir ini dengan hati-hati dan tuntas. Semua data ditanyakan adalah <b>penting</b> kecuali dinyatakan sebagai 'TIDAK'. Silakan gunakan <b>Karakter Latin</b> dan gunakan <b>Huruf Hangeul khusus untuk Alamat di Korea</b>.
+  </fieldset>
+  <fieldset>
+    <div class="row">
+            <section class="col col-3">
+              <label class="label">Tempat Persalinan (RS, Puskesmas)</label>
+              <label class="input">
+                <%= f.input_field :birth_hospital, :required => true, :maxlength => 30  %>
+              <i></i>
+              </label>
+            </section>
+
+            <section class="col col-3">
+              <label class="label">Kota Lahir</label>
+              <label class="input">
+                <%= f.input_field :birth_city, :required => true, :maxlength => 30  %>
+              <i></i>
+              </label>
+            </section>
+
+            <section class="col col-3">
+              <label class="label">Pejabat Penandatangan</label>
+              <label class="select">
+                <%= f.input_field :authorized_signer_name, :required => true,
+                collection: { 'Riza Hera Wardhana' => 'Riza Hera Wardhana',
+                              'Didik Eko Pujiyanto' => 'Didik Eko Pujiyanto'
+                              } %>
+              <i></i>
+              </label>
+            </section>
+
+            <section class="col col-3">
+              <label class="label">Jabatan</label>
+              <label class="select">
+                <%= f.input_field :authorized_signer_post, :required => true,
+                collection: { 'Minister' => 'Minister',
+                              'Minister Counsellor' => 'Minister Counsellor',
+                              'First Secretary' => 'First Secretary',
+                              'Second Secretary' => 'Second Secretary',
+                              'Third Secretary' => 'Third Secretary'
+                              } %>
+              <i></i>
+              </label>
+            </section>
+    </div>
+  </fieldset>
+  <fieldset>
+    <div class="row">
+
+            <section class="col col-3">
+              <label class="label">Nama Bayi</label>
+              <label class="input">
+                <%= f.input_field :birth_baby_name, :required => true, :maxlength => 30  %>
+              <i></i>
+              </label>
+            </section>
+
+            <section class="col col-3">
+              <label class="label">Tanggal Lahir (Huruf)</label>
+              <label class="input">
+                <%= f.input_field :birth_day, :required => true, :maxlength => 30  %>
+              <i></i>
+              </label>
+            </section>
+
+            <section class="col col-3">
+              <label class="label">Bulan Lahir (Huruf)</label>
+              <label class="input">
+                <%= f.input_field :birth_month, :required => true, :maxlength => 30  %>
+              <i></i>
+              </label>
+            </section>
+
+            <section class="col col-3">
+              <label class="label">Tahun Lahir (Huruf)</label>
+              <label class="input">
+                <%= f.input_field :birth_year, :required => true, :maxlength => 30  %>
+              <i></i>
+              </label>
+            </section>
+
+    </div>
+  </fieldset>
+  <fieldset>
+      <div class="row">
+
+            <section class="col col-3">
+              <label class="label">Anak ke (Huruf)</label>
+              <label class="input">
+                <%= f.input_field :birth_baby_sequence, :required => true, :maxlength => 30  %>
+              <i></i>
+              </label>
+            </section>
+
+            <section class="col col-3">
+              <label class="label">Jenis Kelamin</label>
+              <label class="input">
+                <%= f.input_field :birth_baby_sex, :required => true, :maxlength => 10  %>
+              <i></i>
+              </label>
+            </section>
+
+            <section class="col col-3">
+              <label class="label">Nama Ibu</label>
+              <label class="input">
+                <%= f.input_field :birth_baby_mother, :required => true, :maxlength => 30  %>
+              <i></i>
+              </label>
+            </section>
+
+            <section class="col col-3">
+              <label class="label">Nama Bapak</label>
+              <label class="input">
+                <%= f.input_field :birth_baby_father, :required => true, :maxlength => 30  %>
+              <i></i>
+              </label>
+            </section>
+
+      </div>
+  </fieldset>
+  <fieldset style="text-align:justify;">
+          <h4>Disclaimer</h4>
+          <hr /><br />
+          <p>Dengan mengisi form ini Saya menyatakan bahwa semua data yang diisikan merupakan informasi yang sebenar-benarnya.
+            Segala kesalahan informasi yang dapat menyebabkan kerugian adalah tanggung jawab Saya dan tidak dapat di tangguhkan pada pihak lain.
+            KBRI Seoul dan staff terkait dapat menolak/meminta perubahan data dan informasi terkait permohonan jika tidak sesuai dengan syarat dan ketentuan.
+          </p>
+  </fieldset>
+
+  <footer>
+          <button type="submit" class="button">Ajukan Permohonan</button>
+          <button type="button" class="button button-secondary" onclick="window.history.back();">Kembali</button>
+  </footer>
+<% end %>
+</div>
+<script type="text/javascript">
+      $(function()
+      {
+        $('input[type=text]').keyup(function() {
+            $(this).val($(this).val().toUpperCase());
+        });
+        $('textarea').keyup(function() {
+            $(this).val($(this).val().toUpperCase());
+        });
+        // Regular datepicker
+        $('.datePick').datepicker({
+          dateFormat: 'yy/mm/dd',
+          prevText: '<i class="icon-chevron-left"></i>',
+          nextText: '<i class="icon-chevron-right"></i>',
+          changeMonth: true,
+              changeYear: true,
+              yearRange: '1900:2040'
+        });
+
+        $('.fileplaceholder').change(function(){
+          filename = $(this).val();
+          $(this).parent().next().val(filename.split("\\").pop());
+        });
+
+      });
+</script>
