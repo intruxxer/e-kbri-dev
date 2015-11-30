@@ -10,6 +10,7 @@ class Immigration::SplpsController < ApplicationController
     if @splps.count > 0
       render 'index'
     else
+       @splp = Splp.new
       render 'new'
     end
   end

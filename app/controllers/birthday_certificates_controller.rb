@@ -6,7 +6,7 @@ class BirthdayCertificatesController < ApplicationController
      if @birthday_certificates.count > 0 then
       render 'index'
     else
-      @birthday_certificates = BirthdayCertificate.new
+      @birthday_certificate = BirthdayCertificate.new
       render 'new'
     end
 
