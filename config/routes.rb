@@ -25,6 +25,9 @@ EKbri::Application.routes.draw do
   resources :visagroups, controller: 'immigration/visagroup'
   resources :passports, controller: 'immigration/passport'
   resources :splps, controller: 'immigration/splps'
+  match "splp_page1/:id", :to => 'immigration/splps#splp_page1', as: "splp_page1/",via: :get
+  match "splp_page2/:id", :to => 'immigration/splps#splp_page2', as: "splp_page2/", via: :get
+  match "splp_page3/:id", :to => 'immigration/splps#splp_page3', as: "splp_page3/", via: :get
   resources :reports, controller: 'immigration/report'
   resources :cases
 
