@@ -86,7 +86,7 @@
 													
 												<% end %>
 												
-												<% status = (t.status == 'Verified' || t.status == 'Revision' )? ('<a href="/visas/payment/' + t.ref_id + '"><span class="glyphicon glyphicon-credit-card"></span><span class="glyphicon-class"> Make Payment</span></a>').html_safe : t.status %>
+												<% status = (t.status == 'Verified' )? ('<a href="/visas/payment/' + t.ref_id + '"><span class="glyphicon glyphicon-credit-card"></span><span class="glyphicon-class"> Make Payment</span></a>').html_safe : t.status %>
 												<% curid = t.id %>
 												<% currefid = t.ref_id %>
 												<tr>													
@@ -191,10 +191,12 @@
 														<% end %>
 													|&nbsp;
 													<% if t.status == 'Verified' or t.status == 'Paid' %>
-													<%= link_to 'passport/payment/' +t.id do %>
+													<!--<%= link_to 'passport/payment/' +t.id do %>
 														<span class="glyphicon glyphicon-credit-card"></span>
 														<span class="glyphicon-class">Pembayaran</span>
-														<% end %>													
+
+														<% end %>-->
+													<%= t.status %>													
 													|&nbsp;
 													<% end %>
 													<% end %>

@@ -9,6 +9,14 @@ class Immigration::VisaController < ApplicationController
         #redirect_to root_path
      #end
      #We will have passport
+     dateis = Date.new(Date.today.year, Date.today.month, 1)    
+     cur = Visa.all.where(:created_at => { '$gte' => dateis } ).max(:vipa_no) 
+     if cur == nil
+       cur = 9898
+     end
+     flash[:notice] = 'Number ##{cur}' + cur
+     
+     
      @visa = Visa.new
      
       time = Time.new
@@ -230,7 +238,7 @@ class Immigration::VisaController < ApplicationController
     def reference_no_visa
       time = Time.new
       coded_date = time.strftime("%y%m%d")
-      ref_id = 'A'+coded_date+generate_string(3)
+      ref_id = 'A'+coded_date+generate_string(4)
     end
     def generate_string(length=5)
       chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ123456789'
