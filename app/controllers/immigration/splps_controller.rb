@@ -17,7 +17,7 @@ class Immigration::SplpsController < ApplicationController
   def show
     @splp = Splp.find(params[:id])
     respond_to do |format|
-    #format.html { render 'show' }
+    format.html { render 'show' }
       format.json { render json: @splp }
       format.xml { render xml: @splp }
 
@@ -35,21 +35,23 @@ class Immigration::SplpsController < ApplicationController
   def splp_page1
     @splp = Splp.find(params[:id])
     respond_to do |format|
-      format.html { render 'show' }
-      format.json { render json: @splp }
-      format.xml { render xml: @splp }
+      #format.html { render 'show' }
+      #format.json { render json: @splp }
+      #format.xml { render xml: @splp }
       format.pdf do
         render :pdf              => "SPLP_1",
                  :disposition    => "inline", #{attachment, inline}
                  :template       => "immigration/splps/splp_page1.html.erb",
                  :layout         => "splp_pdf_layout.html",
-                 :encoding       => "utf8"
+                 :encoding       => "utf8",
+                 :orientation    => "Landscape",
+                 :page_size      => "Letter"
       end
     end
   end
 
   def splp_page2
-    #@splp = Splp.find(params[:id])
+    @splp = Splp.find(params[:id])
     respond_to do |format|
     #format.html { render 'show' }
     #format.json { render json: @splp }
@@ -65,7 +67,7 @@ class Immigration::SplpsController < ApplicationController
   end
 
   def splp_page3
-    #@splp = Splp.find(params[:id])
+    @splp = Splp.find(params[:id])
     respond_to do |format|
     #format.html { render 'show' }
     #format.json { render json: @splp }
