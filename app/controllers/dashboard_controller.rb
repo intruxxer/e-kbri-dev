@@ -21,6 +21,9 @@ class DashboardController < ApplicationController
     elsif params[:document] == "passport"
       @document = "dashboard/service_passport"
       
+    elsif params[:document] == "splp"
+      @document = "dashboard/service_splp"      
+    
     elsif params[:document] == "prep_spri" then
       
       vipacounter = 3000      

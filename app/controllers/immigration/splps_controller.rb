@@ -14,10 +14,15 @@ class Immigration::SplpsController < ApplicationController
     end
   end
 
+  def check
+    @splp = Splp.find(params[:id])
+    render layout: "dashboard"
+  end
+
   def show
     @splp = Splp.find(params[:id])
     respond_to do |format|
-    format.html { render 'show' }
+      format.html { render 'show' }
       format.json { render json: @splp }
       format.xml { render xml: @splp }
 
@@ -35,13 +40,13 @@ class Immigration::SplpsController < ApplicationController
   def splp_page1
     @splp = Splp.find(params[:id])
     respond_to do |format|
-      #format.html { render 'show' }
-      #format.json { render json: @splp }
-      #format.xml { render xml: @splp }
+    #format.html { render 'show' }
+    #format.json { render json: @splp }
+    #format.xml { render xml: @splp }
       format.pdf do
         render :pdf              => "SPLP_1",
                  :disposition    => "inline", #{attachment, inline}
-                 :template       => "immigration/splps/splp_page1.html.erb",
+                 :template       => "immigration/splps/letter.html.erb",
                  :layout         => "splp_pdf_layout.html",
                  :encoding       => "utf8",
                  :orientation    => "Landscape",
@@ -117,10 +122,13 @@ class Immigration::SplpsController < ApplicationController
   end
 
   def splp_params
-    params.require(:splp).permit(:application_type, :application_reason, :paspor_type, :full_name, :height, :kelamin, :placeBirth, :dateBirth,
-    :citizenship_status, :lastPassportNo, :dateIssued, :placeIssued, :jobStudyInKorea, :jobStudyTypeInKorea, :jobStudyOrganization, :jobStudyAddress,
-    :phoneKorea, :addressKorea, :cityKorea, :phoneIndonesia, :addressIndonesia, :kelurahanIndonesia, :kecamatanIndonesia, :kabupatenIndonesia, :dateArrival,
-    :sendingParty, :photo, :status, :slip_photo, :payment_date, :arc, :dateIssuedEnd, :immigrationOffice, :sponsor_address_prov_kr, :sponsor_address_prov_id,
-    :supporting_doc, :supporting_doc_2, :supporting_doc_3, :supporting_doc_4, :comment, :pickup_office, :pickup_date)
+    #params.require(:splp).permit(:application_type, :application_reason, :paspor_type, :full_name, :height, :kelamin, :placeBirth, :dateBirth,
+    #:citizenship_status)
+
+  params.require(:splp).permit(:application_type, :application_reason, :paspor_type, :full_name, :height, :kelamin, :placeBirth, :dateBirth,
+  :citizenship_status, :lastPassportNo, :dateIssued, :placeIssued, :jobStudyInKorea, :jobStudyTypeInKorea, :jobStudyOrganization, :jobStudyAddress,
+  :phoneKorea, :addressKorea, :cityKorea, :phoneIndonesia, :addressIndonesia, :kelurahanIndonesia, :kecamatanIndonesia, :kabupatenIndonesia, :dateArrival,
+  :sendingParty, :photo, :status, :slip_photo, :payment_date, :arc, :dateIssuedEnd, :immigrationOffice, :sponsor_address_prov_kr, :sponsor_address_prov_id,
+  :supporting_doc, :supporting_doc_2, :supporting_doc_3, :supporting_doc_4, :comment, :pickup_office, :pickup_date)
   end
 end

@@ -243,6 +243,63 @@ class DesktopController < ApplicationController
     redirect_to '/passports/' + params[:id] + '/check', msg
   end
   
+  def show_all_splp
+    @splp = Splp.desc(:created_at)   
+    
+    params.permit(:sSearch,:iDisplayLength,:iDisplayStart)
+    
+    unless ( params[:filterdstart]=='' && params[:filterdend]=='' )
+      if params[:filterd] == "Pembayaran"
+        @splp = @splp.where(:payment_date => { '$gte' => params[:filterdstart].to_s + " 00:00:00", '$lte' => params[:filterdend].to_s + " 23:59:00" })
+      elsif params[:filterd] == "Pengambilan"
+        @splp = @splp.where(:pickup_date => { '$gte' => params[:filterdstart].to_s + " 00:00:00", '$lte' => params[:filterdend].to_s + " 23:59:00" })
+      elsif params[:filterd] == "Pembuatan"
+        @splp = @splp.where(:created_at => { '$gte' => params[:filterdstart].to_s + " 00:00:00", '$lte' => params[:filterdend].to_s + " 23:59:00" })
+      else
+        @splp = @splp.where(:created_at => { '$gte' => params[:filterdstart].to_s + " 00:00:00" , '$lte' => params[:filterdend].to_s + " 23:59:00" })
+      end      
+    end    
+    
+    @splp = @splp.all
+    
+    
+    
+    unless (params[:sSearch].nil? || params[:sSearch] == "")    
+      searchparam = params[:sSearch]  
+      @splp = @splp.any_of({:full_name => /#{searchparam}/},{:ref_id => /#{searchparam}/},{:status => /#{searchparam}/},{:pickup_office => /#{searchparam}/})
+    end   
+    
+    unless (params[:iDisplayStart].nil? || params[:iDisplayLength] == '-1')
+      @splp = @splp.skip(params[:iDisplayStart]).limit(params[:iDisplayLength])      
+    end    
+    
+    iTotalRecords = Splp.count
+    iTotalDisplayRecords = @splp.count
+    aaData = Array.new    
+    
+    
+    i = 1
+    @splp.each do |splp|
+      editLink = "<a target=\"_blank\" href=\"/splps/" + splp.id + "/edit\" target=\"_blank\"><span class='glyphicon glyphicon-pencil'></span><span class='glyphicon-class'>&nbsp;Edit</span></a>"
+      #printLink = "<a href=\"/admin/service/prep_spri/" + passport.id + "\" target=\"_blank\"><span class='glyphicon glyphicon-export'></span><span class='glyphicon-class'>Send to SPRI</span></a>"
+      checkLink = "<a target=\"_blank\" href=\"/splps/" + splp.id + "/check\"><span class='glyphicon glyphicon-eye-open'></span><span class='glyphicon-class'>&nbsp;Check</span></a>"
+      #deleteLink = "<a rel=\"nofollow\" data-method=\"delete\" href=\"/deletepassportviadashboard/#{passport.id}\"><span class='glyphicon glyphicon-trash'></span><span class='glyphicon-class'>Delete</span></a>"
+      deleteLink = "<a class=\"deldata\" data-value=\"#{splp.ref_id}\" href=\"/deletesplpviadashboard/#{splp.id}\"><span class='glyphicon glyphicon-trash'></span></a>"
+      
+      paymentdate = !(splp.payment_date.nil?) ? splp.payment_date.strftime("%-d %b %Y") : '-'
+      retrievedate = !(splp.pickup_date.nil?) ? ('<a style="color:#009933;font-weight:bold;">' + (splp.pickup_date).strftime("%-d %b %Y") + '</a>').html_safe : '-'
+      printeddate = !(splp.printed_date.nil?) ? splp.printed_date.strftime("%-d %b %Y") : '-'
+      
+      aaData.push([i, splp.ref_id, splp.full_name, splp.status, splp.created_at.strftime("%-d %b %Y"), paymentdate , retrievedate , printeddate, splp.pickup_office , checkLink + "&nbsp;|&nbsp;" + editLink + "&nbsp;|&nbsp;" + deleteLink + "&nbsp;" ])
+      i += 1                        
+    end
+    
+    respond_to do |format|
+      format.json { render json: {'sEcho' => params[:sEcho].to_i , 'aaData' => aaData , 'iTotalRecords' => iTotalRecords, 'iTotalDisplayRecords' => iTotalDisplayRecords } }
+    end
+    
+  end
+  
   
   def show_all_spri
     @passport = Passport.desc(:created_at)   
@@ -355,6 +412,9 @@ class DesktopController < ApplicationController
     
     elsif params[:doc] == "visa"
       @doc = Visa.all.desc(:created_at)
+      
+    elsif params[:doc] == "splp"
+      @doc = Splp.all.desc(:created_at)
     end
     
     
@@ -385,6 +445,9 @@ class DesktopController < ApplicationController
       wb.add_worksheet(:name => "Export Table") do |sheet|        
         if params[:doc] == "passport"
           sheet.add_row ["No.", "REF ID", "Full Name", "Status", "Pembuatan", "Pembayaran", "Pencetakan", "Pengambilan", "Kantor"], :style => [style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1]
+        elsif params[:doc] == "splp"
+          sheet.add_row ["No.", "REF ID", "Full Name", "Status", "Pembuatan", "Pembayaran", "Pencetakan", "Pengambilan", "Kantor"], :style => [style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1]
+    
         elsif params[:doc] == "visa"
           sheet.add_row ["No.", "REF ID", "Full Name", "Status", "Pembuatan", "Pembayaran", "Pencetakan", "Pengambilan", "Jenis Visa", "Kantor"], :style => [style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1,style_1]
           
@@ -403,6 +466,8 @@ class DesktopController < ApplicationController
           printeddate = !(docs.printed_date.nil?) ? docs.printed_date.strftime("%-d %b %Y") : '-'
           
           if params[:doc] == "passport"
+            sheet.add_row [i, docs.ref_id, docs.full_name, docs.status, docs.created_at.strftime("%-d %b %Y"), paymentdate, printeddate , retrievedate, docs.pickup_office ]  
+          elsif params[:doc] == "splp"
             sheet.add_row [i, docs.ref_id, docs.full_name, docs.status, docs.created_at.strftime("%-d %b %Y"), paymentdate, printeddate , retrievedate, docs.pickup_office ]  
           elsif params[:doc] == "visa"
             
@@ -429,6 +494,18 @@ class DesktopController < ApplicationController
         }
     end
     
+  end
+  
+  #DELETE /splp/:id
+  def destroy_splp
+   @splp = Splp.find(params[:id])
+    reference = @splp.ref_id
+    if @splp.delete
+      current_user.journals.push(Journal.new(:action => 'Removed', :model => 'Passport', :method => 'Delete from Dashboard', :agent => request.user_agent, :record_id => params[:id], :ref_id => reference ))
+      redirect_to :back, :notice => "SPLP Application dengan No Ref #{reference} sudah berhasil dihapus dari sistem."
+    else
+      redirect_to :back, :notice => "SPLP Application dengan No Ref #{reference} tidak ditemukan."
+    end
   end
   
   #DELETE /passport/:id

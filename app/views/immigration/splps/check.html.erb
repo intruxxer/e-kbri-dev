@@ -1,0 +1,286 @@
+<%= stylesheet_link_tag "/assets/css/dashboard/form.css" %>
+<% flash.each do |name, msg| %>
+  <% if msg.is_a?(String) %>
+    <div class="alert alert-<%= name == :notice ? "success" : name %>">
+      <a class="close" data-dismiss="alert">&#215;</a>
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    </div>
+  <% end %>
+<% end %>
+<% unless @errors.nil? %>
+			<h2 style="color:white;background:red;">Pengajuan Gagal. Silahkan cek pesan dibawah ini</h2>
+				<div style="padding:4px;color:red;font-size:10pt;">
+					<% @errors.each do |fs| %>
+						<%= simple_format(fs[0].to_s + " = " + fs[1].to_s + "\n")  %>
+					<%end%>
+				</div>
+			<%end%>
+<br />
+<div class="sky-form" style="margin:16px;">
+	
+	<fieldset>
+		<div class="row">			
+			<section class="col col-6">
+				Jenis Aplikasi : <b>SPLP  </b>
+			</section>
+			<section class="col col-3"></section>
+			<section class="col col-3" style="background:#FFFFCC;">
+				Current Status : <b><%= @splp.status %></b>
+			</section>			
+		</div>
+	</fieldset>
+	<fieldset style="background:#FFCC66;">
+		<div class="row">			
+			<% if @splp.slip_photo.exists? %>
+				<section class="col col-6">
+					Status Pembayaran : <b>Sudah dibayar</b><br />
+					<%= link_to 'Download Slip Pembayaran', @splp.slip_photo.url(:original, false), target: "_blank" %>
+				</section>
+				<section class="col col-6">
+					Tanggal Pembayaran : <b><%= @splp.payment_date %></b>
+				</section>
+				<section class="col col-6">
+					Pickup Location : <b><%= @splp.pickup_office %></b> <br />
+					Pickup Date		: <b><%= @splp.pickup_date %></b>
+				</section>
+			<% else %>
+				<section class="col col-6">
+					Status Pembayaran : <b>Belum Diterima</b>
+				</section>
+			<% end %>
+		</div>
+	</fieldset>
+	<fieldset>
+		<% if @splp.photo.exists? %>
+		<div class="row" style="float:left;">	
+				<section class="col col-1" style="padding:8px;">
+					<%= image_tag @splp.photo.url(), width: '140'  %>
+					<%= link_to 'Download', @splp.photo.url(:original, false), target: "_blank" %>					
+				</section>				
+		</div>
+		<%end%>	
+		<div class="row" style="float:left;">			
+			<section class="col col-4">
+				<label class="label">Nama Lengkap</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.full_name %>							
+				</label>
+			</section>
+			<section class="col col-4">
+				<label class="label">Jenis Kelamin</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.kelamin %>							
+				</label>
+			</section>		
+			<section class="col col-4">
+				<label class="label">Kewarganegaraan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.citizenship_status %>							
+				</label>
+			</section>	
+			<section class="col col-4">
+				<label class="label">Tanggal Lahir</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.dateBirth %>							
+				</label>
+			</section>
+			<section class="col col-4">
+				<label class="label">Tempat Lahir</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.placeBirth %>							
+				</label>
+			</section>
+			<section class="col col-4">
+				<label class="label">Tinggi Badan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.height %> Cm							
+				</label>
+			</section>		
+		</div>
+		<div style="clear:both"></div>
+		<div class="row">
+			<section class="col col-2">
+				<label class="label">Nomor Alien Card</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.arc %>						
+				</label>
+			</section>
+			<section class="col col-2">
+				<label class="label">Pekerjaan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.jobStudyInKorea %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Keterangan Pekerjaan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.jobStudyTypeInKorea %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Nama Perusahaan/Instansi</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.jobStudyOrganization %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-4"></section>
+			<section class="col col-3">
+				<label class="label">Alamat Perusahaan/Instansi</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.jobStudyAddress %>							
+				</label>
+			</section>
+		</div>	
+	</fieldset>
+	
+	<fieldset>
+		<h3>Detail SPLP Sebelumnya</h3>
+		<hr /><br />
+		<div class="row">
+			<section class="col col-3">
+				<label class="label">Nomor splp</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.lastPassportNo %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Tanggal dikeluarkan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.dateIssued %>							
+				</label>
+			</section>			
+			<section class="col col-3">
+				<label class="label">Tanggal Habis Berlaku</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.dateIssuedEnd %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Tempat dikeluarkan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.placeIssued %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-6"></section>
+			<section class="col col-3"></section>
+			<section class="col col-3">
+				<label class="label">Kantor Imigrasi</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.immigrationOffice %>							
+				</label>
+			</section>
+		</div>
+	</fieldset>	
+	
+	<fieldset>
+		<h3>Keterangan di Indonesia</h3>
+		<hr /><br />
+		<div class="row">
+			<section class="col col-6">
+				<label class="label">Alamat Indonesia</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.addressIndonesia %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Kelurahan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.kelurahanIndonesia %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Kabupaten</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.kabupatenIndonesia %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-3">
+				<label class="label">No. Telepon</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.phoneIndonesia %>							
+				</label>
+			</section>
+			<section class="col col-3"></section>
+			<section class="col col-3">
+				<label class="label">Kecamatan</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.kecamatanIndonesia %>							
+				</label>
+			</section>
+			<section class="col col-3">
+				<label class="label">Propinsi</label>
+				<label class="label" style="font-weight:bold;">
+					<%= @splp.sponsor_address_prov_id %>							
+				</label>
+			</section>		
+		</div>
+	</fieldset>
+	
+	<fieldset>
+		<div class="row">
+			<section class="col col-9">
+				<label class="label">Dokumen Pendukung 1</label>
+				<label class="label" style="font-weight:bold;">
+					<% if @splp.supporting_doc.exists? %>
+						<%= link_to @splp.supporting_doc_file_name, @splp.supporting_doc.url(:original, false), target: "_blank" %>
+					<% else %>
+						<i style="color:orange;">Dokumen Pendukung Tidak Ditemukan</i>
+					<% end %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-9">
+				<label class="label">Dokumen Pendukung 2</label>
+				<label class="label" style="font-weight:bold;">
+					<% if @splp.supporting_doc_2.exists? %>
+						<%= link_to @splp.supporting_doc_2_file_name, @splp.supporting_doc_2.url(:original, false), target: "_blank" %>
+					<% else %>
+						<i style="color:orange;">Dokumen Pendukung Tidak Ditemukan</i>
+					<% end %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-9">
+				<label class="label">Dokumen Pendukung 3</label>
+				<label class="label" style="font-weight:bold;">
+					<% if @splp.supporting_doc_3.exists? %>
+						<%= link_to @splp.supporting_doc_3_file_name, @splp.supporting_doc_3.url(:original, false), target: "_blank" %>
+					<% else %>
+						<i style="color:orange;">Dokumen Pendukung Tidak Ditemukan</i>
+					<% end %>							
+				</label>
+			</section>
+		</div>
+		<div class="row">
+			<section class="col col-9">
+				<label class="label">Dokumen Pendukung 4</label>
+				<label class="label" style="font-weight:bold;">
+					<% if @splp.supporting_doc_4.exists? %>
+						<%= link_to @splp.supporting_doc_4_file_name, @splp.supporting_doc_4.url(:original, false), target: "_blank" %>
+					<% else %>
+						<i style="color:orange;">Dokumen Pendukung Tidak Ditemukan</i>
+					<% end %>							
+				</label>
+			</section>
+		</div>
+	</fieldset>
+	
+	<foote >
+		<h3>Actions</h3>
+		<a target: "_blank" href="<%= splp_page1_path(@splp)%>.pdf"><button type="button" class="button" style="background-color:#009933">Print hal 3</button></a>
+		<a target: "_blank" href="<%= splp_page1_path(@splp)%>.pdf"><button type="button" class="button" style="background-color:#009933">Print hal 2</button></a>
+		<a target: "_blank" href="<%= splp_page1_path(@splp)%>.pdf"><button type="button" class="button" style="background-color:#009933">Print hal 1</button></a> 
+		<a href="/dashboard/service/splp"><button type="button" class="button button-secondary">Kembali</button></a>
+		
+	</footer>
+</div>
+
+			
