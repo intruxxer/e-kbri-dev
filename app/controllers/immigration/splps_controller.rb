@@ -46,7 +46,7 @@ class Immigration::SplpsController < ApplicationController
       format.pdf do
         render :pdf              => "SPLP_1",
                  :disposition    => "inline", #{attachment, inline}
-                 :template       => "immigration/splps/letter.html.erb",
+                 :template       => "immigration/splps/splp_page1.html.erb",
                  :layout         => "splp_pdf_layout.html",
                  :encoding       => "utf8",
                  :orientation    => "Landscape",
@@ -62,11 +62,14 @@ class Immigration::SplpsController < ApplicationController
     #format.json { render json: @splp }
     #format.xml { render xml: @splp }
       format.pdf do
-        render :pdf            => "SPLP_1",
+        render :pdf            => "SPLP_hal2",
                  :disposition    => "inline", #{attachment, inline}
                  :template       => "immigration/splps/splp_page2.html.erb",
                  :layout         => "splp_pdf_layout.html",
-                 :encoding       => "utf8"
+                 :encoding       => "utf8",
+                 :orientation    => "Landscape",
+                 :page_size      => "Letter"
+
       end
     end
   end
@@ -82,7 +85,9 @@ class Immigration::SplpsController < ApplicationController
                  :disposition    => "inline", #{attachment, inline}
                  :template       => "immigration/splps/splp_page3.html.erb",
                  :layout         => "splp_pdf_layout.html",
-                 :encoding       => "utf8"
+                 :encoding       => "utf8",
+                 :orientation    => "Landscape",
+                 :page_size      => "Letter"
       end
     end
   end

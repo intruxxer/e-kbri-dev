@@ -15,9 +15,9 @@ body {margin-top: 0px;margin-left: 0px;}
 
 .p0{text-align: left;padding-left: 393px;margin-top: 0px;margin-bottom: 10px;}
 .p1{text-align: left;padding-left: 470px;margin-top: 72px;margin-bottom: 0px;}
-.p2{text-align: left;padding-left: 355px;margin-top: 73px;margin-bottom: 0px;}
+.p2{text-align: left;padding-left: 355px;margin-top: 78px;margin-bottom: 0px;}
 .p3{text-align: left;padding-left: 355px;margin-top: 0px;margin-bottom: 0px;}
-.p4{text-align: left;padding-left: 400px;margin-top: 23px;margin-bottom: 0px;}
+.p4{text-align: left;padding-left: 400px;margin-top: 18px;margin-bottom: 0px;}
 
 .box_name{width: 20em;height: 1em; word-wrap: break-word;}
 
@@ -27,11 +27,11 @@ body {margin-top: 0px;margin-left: 0px;}
 <BODY>
 <DIV id="page_1">
 <P class="p0 ft0 box_name"><b> <%= @splp.full_name%></b></P>
-<P class="p1 ft1"><b>GROBOGAN cilacap jawa tencah, 19 JUN 1971</b></P>
-<P class="p2 ft1"><b>DSN.PESANTREN</b></P>
-<P class="p3 ft1"><b>RT01/03 KLAMBU</b></P>
-<P class="p3 ft1"><b>GROBOGAN</b></P>
-<P class="p4 ft1"><b>158 CM</b></P>
+<P class="p1 ft1"><b><%= @splp.placeBirth%>, <%=@splp.dateBirth %></b></P>
+<P class="p2 ft1"><b><%= @splp.addressIndonesia %></b></P>
+<P class="p3 ft1"><b><%= @splp.kelurahanIndonesia %></b></P>
+<P class="p3 ft1"><b><GROBOGAN><%= @splp.kecamatanIndonesia%></b></P>
+<P class="p4 ft1"><b><%= @splp.height%> CM</b></P>
 </DIV>
 </BODY>
 </HTML>
