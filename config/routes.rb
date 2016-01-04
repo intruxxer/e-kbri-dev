@@ -25,6 +25,9 @@ EKbri::Application.routes.draw do
   resources :visagroups, controller: 'immigration/visagroup'
   resources :passports, controller: 'immigration/passport'
   resources :splps, controller: 'immigration/splps'
+  match "splp_page1/:id", :to => 'immigration/splps#splp_page1', as: "splp_page1/",via: :get
+  match "splp_page2/:id", :to => 'immigration/splps#splp_page2', as: "splp_page2/", via: :get
+  match "splp_page3/:id", :to => 'immigration/splps#splp_page3', as: "splp_page3/", via: :get
   resources :reports, controller: 'immigration/report'
   resources :cases
 
@@ -98,6 +101,7 @@ EKbri::Application.routes.draw do
   get "lapordiri/show/all", :to => "desktop#show_all_lapordiri"
   get "lapordiri/show/history/:user_id", :to => "desktop#show_all_lapordiri_history"
   get "passport/show/all", :to => "desktop#show_all_spri"
+  get "splp/show/all", :to => "desktop#show_all_splp"
   get "case/list/all", :to => "desktop#show_all_cases"
   get "dashboard/service/:document", :to => "dashboard#immigration"
   get "admin/service/:document/:id", :to => "dashboard#immigration"
@@ -110,6 +114,7 @@ EKbri::Application.routes.draw do
   match "visa/tosisari/:id", to: "desktop#exec_toSisari", via: :post
 
   get "passports/:id/check", :to => "immigration/passport#check"
+  get "splps/:id/check", :to => "immigration/splps#check"
   get "visas/:id/check", :to => "immigration/visa#check"
   get "reports/:id/check", :to => "immigration/report#check"
   get "reports/:whosign/:id", :to => "immigration/report#show"
@@ -132,6 +137,7 @@ EKbri::Application.routes.draw do
 
   get "finishgroupapply", :to => "immigration/visa#finishing_application"
   get "deletepassportviadashboard/:id", :to => "desktop#destroy_passport", via: :delete, :as => :deletepassportviadashboard
+  get "deletesplpviadashboard/:id", :to => "desktop#destroy_splp", via: :delete, :as => :deletesplpviadashboard
   get "deletevisaviadashboard/:id", :to => "desktop#destroy_visa", via: :delete, :as => :deletevisaviadashboard
   get "deleteuserviadashboard/:id", :to => "desktop#destroy_user", via: :delete, :as => :deleteuserviadashboard
 

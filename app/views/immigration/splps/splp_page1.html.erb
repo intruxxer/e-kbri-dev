@@ -3,7 +3,7 @@
 <HEAD>
 <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <META http-equiv="X-UA-Compatible" content="IE=8">
-<TITLE>Created by BCL easyConverter SDK 3 (HTML Version)</TITLE>
+<TITLE>SPLP halaman 1</TITLE>
 <STYLE type="text/css">
 
 body {margin-top: 0px;margin-left: 0px;}
@@ -27,10 +27,10 @@ body {margin-top: 0px;margin-left: 0px;}
 <BODY>
 <DIV id="page_1">
 <P class="p0 ft0 box_name"><b> <%= @splp.full_name%></b></P>
-<P class="p1 ft1"><b><%= @splp.placeBirth%>, <%=@splp.dateBirth %></b></P>
+<P class="p1 ft1"><b><%= @splp.placeBirth%>, <%=@splp.dateBirth.strftime("%d %b %Y") %></b></P>
 <P class="p2 ft1"><b><%= @splp.addressIndonesia %></b></P>
 <P class="p3 ft1"><b><%= @splp.kelurahanIndonesia %></b></P>
-<P class="p3 ft1"><b><GROBOGAN><%= @splp.kecamatanIndonesia%></b></P>
+<P class="p3 ft1"><b><%= @splp.kecamatanIndonesia%></b></P>
 <P class="p4 ft1"><b><%= @splp.height%> CM</b></P>
 </DIV>
 </BODY>
