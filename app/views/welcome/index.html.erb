@@ -190,12 +190,7 @@
 														<span class="glyphicon-class">Batal</span>
 														<% end %>
 													|&nbsp;
-													<% if t.status == 'Verified' or t.status == 'Paid' %>
-													<!--<%= link_to 'passport/payment/' +t.id do %>
-														<span class="glyphicon glyphicon-credit-card"></span>
-														<span class="glyphicon-class">Pembayaran</span>
-
-														<% end %>-->
+													<% if t.status == 'Verified' or t.status == 'Paid' %>													
 													<%= t.status %>													
 													|&nbsp;
 													<% end %>
